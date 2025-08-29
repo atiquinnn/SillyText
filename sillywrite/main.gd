@@ -2,15 +2,23 @@ extends Control
 
 @onready var text_edit: TextEdit = $VBoxContainer/HBoxContainer/TextEdit
 @onready var text_result: RichTextLabel = $VBoxContainer/HBoxContainer/RichTextLabel
+@onready var settings_button: Button = $VBoxContainer/HBoxContainer2/SettingsButton
+@onready var settings_window: Window = $VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow
+@onready var txtsize: TextEdit = $VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer/TXTSIZE
+@onready var uitxtsize: TextEdit = $VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer2/UITXTSIZE
+const MAIN_DEV_THEME = preload("res://main_dev_theme.tres")
 
 var live_text: String
 var process_text: Array
 var result_text: String
 var title_size = 72
-var paragraph_size = 16
+var paragraph_size = 160
+
+var render_text_size = 16
+var ui_text_size = 16
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	settings_window.hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,9 +46,16 @@ func _on_text_edit_text_changed() -> void:
 				element = remove_prefix(element,Tokens.settings["SETTING_TITLE_SIZE"])
 				if element.begins_with("\n"):
 					element = remove_prefix(element,"\n")
-				
 				title_size = int(element)
 				#print(title_size)
+			elif element.begins_with(Tokens.settings["SETTING_PARAGRAPH_SIZE"]):
+				element = remove_prefix(element,Tokens.settings["SETTING_PARAGRAPH_SIZE"])
+				if element.begins_with("\n"):
+					element = remove_prefix(element,"\n")
+				paragraph_size = int(element)
+				
+				
+				
 				
 			
 		
@@ -48,7 +63,7 @@ func _on_text_edit_text_changed() -> void:
 			var title = "[font_size="+str(title_size)+"]"+remove_prefix(element,Tokens.tokens["TOKEN_TITLE"])+"[/font_size]\n\n"
 			result_text += title
 		elif element.begins_with(Tokens.tokens["TOKEN_PARAGRAPH"]):
-			var paragraph = "[p]"+remove_prefix(element,Tokens.tokens["TOKEN_PARAGRAPH"])+"[/p]\n"
+			var paragraph = "[font_size="+str(paragraph_size)+"]"+remove_prefix(element,Tokens.tokens["TOKEN_PARAGRAPH"])+"[/font_size]\n"
 			result_text += paragraph
 		elif element.begins_with(Tokens.tokens["TOKEN_COMMENT"]):
 			pass
@@ -76,3 +91,19 @@ func clean_string(string):
 	if string.begins_with("\n"):
 		string = remove_prefix(string,"\n")
 	return string
+
+
+func _on_settings_button_pressed() -> void:
+	settings_window.visible = not settings_window.visible
+
+
+func _on_settings_window_close_requested() -> void:
+	settings_window.hide()
+
+
+func _on_size_settings_button_pressed() -> void:
+	text_edit.add_theme_font_size_override("font_size", int(txtsize.text))
+
+
+func _on_ui_size_settings_button_pressed() -> void:
+	MAIN_DEV_THEME.set_font_size("font_size","Node",int(uitxtsize.text))

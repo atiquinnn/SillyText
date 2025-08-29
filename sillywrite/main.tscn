@@ -49,6 +49,69 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Settings"
 
+[node name="SettingsWindow" type="Window" parent="VBoxContainer/HBoxContainer2/SettingsButton"]
+disable_3d = true
+title = "Settings"
+initial_position = 1
+size = Vector2i(320, 240)
+min_size = Vector2i(320, 240)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Text editor size"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TXTSIZE" type="TextEdit" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "16"
+
+[node name="SizeSettingsButton" type="Button" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Set"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "UI text size"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="UITXTSIZE" type="TextEdit" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "16"
+
+[node name="UISizeSettingsButton" type="Button" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Set"
+
+[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.1
+text = "Bleeeeh :p"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -65,4 +128,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="close_requested" from="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow" to="." method="_on_settings_window_close_requested"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer/SizeSettingsButton" to="." method="_on_size_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer2/SettingsButton/SettingsWindow/VBoxContainer/VBoxContainer/HBoxContainer2/UISizeSettingsButton" to="." method="_on_ui_size_settings_button_pressed"]
 [connection signal="text_changed" from="VBoxContainer/HBoxContainer/TextEdit" to="." method="_on_text_edit_text_changed"]
