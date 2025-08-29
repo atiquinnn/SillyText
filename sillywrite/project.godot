@@ -14,6 +14,18 @@ config/name="SillyWrite"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Tokens="*res://tokens.gd"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=480
+window/stretch/aspect="ignore"
+window/stretch/scale_mode="integer"
+window/vsync/vsync_mode=2
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

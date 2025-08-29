@@ -1,0 +1,81 @@
+extends Control
+
+@onready var text_edit: TextEdit = $TextEdit
+@onready var rich_text_label: RichTextLabel = $RichTextLabel
+@onready var go_button: Button = $GoButton
+@onready var adresstext: TextEdit = $Adresstext
+@onready var http_request: HTTPRequest = $HTTPRequest
+
+var title_size = 30
+
+const TITLE_PREFIX = "T::"
+const BODY_PREFIX = "P::"
+const LINK_PREFIX = "L::"
+
+var processtext = ""
+var title = ""
+var body: Array
+var body_str: String = ""
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	text_edit.text = "T::Hello World!;\nP::This is a test.\nof a custom markdown for WUG TLP and SMZDT ALP;\nL::SMZDT://hello.world@smzdt;"
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_go_button_pressed() -> void:
+	rich_text_label.text = ""
+	title = ""
+	body_str = ""
+	body.clear()
+	
+	processtext = text_edit.text.split(";",false)
+	for element in processtext:
+		print(element)
+		element = element.strip_edges()
+		
+		if element.begins_with("\n"):
+			element = remove_prefix(element,"\n")
+		if element.ends_with("\n"):
+			element = remove_suffix(element,"\n")
+		
+		if element.begins_with(TITLE_PREFIX):
+			title = remove_prefix(element,TITLE_PREFIX)
+		elif element.begins_with(BODY_PREFIX):
+			body.append("[p]"+str(remove_prefix(element,BODY_PREFIX))+"[/p]")
+			print(body)
+		elif element.begins_with(LINK_PREFIX):
+			body.append("[url]"+remove_prefix(element,LINK_PREFIX)+"[/url]")
+		else:
+			print("incorrect parse")
+			continue
+	
+	
+	title = "[font_size="+str(title_size)+"]"+title+"[/font_size]\n"
+	body_str = "".join(body)
+	print(body_str)
+	rich_text_label.append_text(title+body_str)
+	print(title+body_str)
+
+
+func remove_prefix(text, prefix):
+	if text.begins_with(prefix):
+		return text.substr(prefix.length(), text.length() - prefix.length())
+	return text
+
+func remove_suffix(text, suffix):
+	if text.ends_with(suffix):
+		return text.substr(0, text.length() - suffix.length())
+	return text
+
+
+func _on_load_button_pressed() -> void:
+	http_request.request_completed.connect(_on_request_completed)
+	http_request.request(adresstext.text)
+	
+func _on_request_completed(result, response_code, headers, body):
+	print(body.get_string_from_utf8())
+	text_edit.text = body.get_string_from_utf8()

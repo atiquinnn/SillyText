@@ -1,0 +1,28 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://dg7qpcfmnxvn6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7dm0k"]
+bg_color = Color(0.259163, 0.2059, 0.29, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t276u"]
+bg_color = Color(0.0901961, 0.0705882, 0.101961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y14kr"]
+bg_color = Color(0.0901961, 0.0705882, 0.101961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_we1jw"]
+bg_color = Color(0.0901961, 0.0705882, 0.101961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qm4yl"]
+bg_color = Color(0.13295, 0.1035, 0.15, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch4xo"]
+bg_color = Color(0.0901961, 0.0705882, 0.101961, 1)
+
+[resource]
+Panel/styles/panel = SubResource("StyleBoxFlat_7dm0k")
+RichTextLabel/styles/background = SubResource("StyleBoxFlat_t276u")
+RichTextLabel/styles/fill = SubResource("StyleBoxFlat_y14kr")
+RichTextLabel/styles/focus = null
+RichTextLabel/styles/normal = SubResource("StyleBoxFlat_we1jw")
+TextEdit/styles/focus = SubResource("StyleBoxFlat_qm4yl")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_ch4xo")
