@@ -46,7 +46,20 @@ func _on_text_edit_text_changed() -> void:
 				element = remove_prefix(element,Tokens.settings["SETTING_TITLE_SIZE"])
 				if element.begins_with("\n"):
 					element = remove_prefix(element,"\n")
+<<<<<<< Updated upstream
 				title_size = int(element)
+=======
+			
+			title_size = int(element)
+					
+			if element.begins_with(Tokens.settings["SETTING_PARAGRAPH_SIZE"]):
+				element = remove_prefix(element,Tokens.settings["SETTING_PARAGRAPH_SIZE"])
+				if element.begins_with("\n"):
+					element = remove_prefix(element,"\n")
+			paragraph_size = int(element)
+				
+				
+>>>>>>> Stashed changes
 				#print(title_size)
 			elif element.begins_with(Tokens.settings["SETTING_PARAGRAPH_SIZE"]):
 				element = remove_prefix(element,Tokens.settings["SETTING_PARAGRAPH_SIZE"])
@@ -63,7 +76,11 @@ func _on_text_edit_text_changed() -> void:
 			var title = "[font_size="+str(title_size)+"]"+remove_prefix(element,Tokens.tokens["TOKEN_TITLE"])+"[/font_size]\n\n"
 			result_text += title
 		elif element.begins_with(Tokens.tokens["TOKEN_PARAGRAPH"]):
+<<<<<<< Updated upstream
 			var paragraph = "[font_size="+str(paragraph_size)+"]"+remove_prefix(element,Tokens.tokens["TOKEN_PARAGRAPH"])+"[/font_size]\n"
+=======
+			var paragraph = "[p]"+"[font_size="+str(paragraph_size)+"]"+remove_prefix(element,Tokens.tokens["TOKEN_PARAGRAPH"])+"[/font_size]"+"[/p]\n"
+>>>>>>> Stashed changes
 			result_text += paragraph
 		elif element.begins_with(Tokens.tokens["TOKEN_COMMENT"]):
 			pass
